@@ -1,0 +1,16 @@
+{
+  "name": "podbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "@discordjs/voice": "^0.7.5",
+    "discord-api-types": "^0.26.1",
+    "discord.js": "^13.6.0",
+    "dotenv": "^14.2.0"
+  }
+}
