@@ -10,7 +10,11 @@ import { sendMessageToChannel } from "../utils/helpers/sendMessageToChannel";
 export const joinChannel = (message: Message, client: Client) => {
   const messageChannelId = message.channelId;
   const voiceChannelId = message.member?.voice.channelId;
-
+  // Get text channel of the original message, will be used for bot feedback to user.
+  const channel = fetchChannel({
+    channelId: messageChannelId,
+    client: client,
+  });
   if (
     message.member &&
     message.member.voice.channel &&
@@ -36,22 +40,13 @@ export const joinChannel = (message: Message, client: Client) => {
           adapterCreator: message.guild
             .voiceAdapterCreator as unknown as DiscordGatewayAdapterCreator,
         });
-
         // Success?
-        const channel = fetchChannel({
-          channelId: messageChannelId,
-          client: client,
-        });
         sendMessageToChannel({
           channel: channel,
           message:
             "Stomp, stomp I've arrived! Waiting for consent from all channel members, then you are good to type **pb::record**.",
         });
       } else {
-        const channel = fetchChannel({
-          channelId: messageChannelId,
-          client: client,
-        });
         sendMessageToChannel({
           channel: channel,
           message: "Already there, dummy.",
@@ -60,10 +55,6 @@ export const joinChannel = (message: Message, client: Client) => {
     }
   } else {
     // If user isn't in a voice channel, prompt them to join one.
-    const channel = fetchChannel({
-      channelId: messageChannelId,
-      client: client,
-    });
     sendMessageToChannel({
       channel: channel,
       message: "You need to be in a voice channel to invite me in.",
