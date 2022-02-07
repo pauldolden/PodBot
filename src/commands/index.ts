@@ -1,3 +1,4 @@
+import { startRecording } from "./record";
 import { Client } from "discord.js";
 import { handleCommand } from "../listeners/command";
 import { consentToRecording } from "./consent";
@@ -9,7 +10,11 @@ export const handleCommands = (client: Client) => {
     command: "pb::join",
     action: joinChannel,
   });
-
+  handleCommand({
+    client: client,
+    command: "pb::record",
+    action: startRecording,
+  });
   handleCommand({
     client: client,
     command: "pb::consent",
